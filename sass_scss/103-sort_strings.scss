@@ -1,0 +1,39 @@
+$list_to_sort: john anna zoe kim felicia carrie;
+
+@function sort-list($list) {
+  $length: length($list);
+
+  @for $i from 1 through $length {
+    @for $j from ($i + 1) through $length {
+      $item-i: nth($list, $i);
+      $item-j: nth($list, $j);
+
+      @if $item-j < $item-i {
+        $tmp: $item-i;
+        $item-i: $item-j;
+        $item-j: $tmp;
+
+        $list: set-nth($list, $i, $item-i);
+        $list: set-nth($list, $j, $item-j);
+      }
+    }
+  }
+
+  @return $list;
+}
+
+@function set-nth($list, $n, $value) {
+  $result: ();
+
+  @for $i from 1 through length($list) {
+    @if $i == $n {
+      $result: append($result, $value);
+    } @else {
+      $result: append($result, nth($list, $i));
+    }
+  }
+
+  @return $result;
+}
+
+@debug sort-list($list_to_sort);
