@@ -1,3 +1,5 @@
+/* 16. Sort! */
+
 @function sort-list($list) {
   $length: length($list);
 
@@ -34,4 +36,18 @@
   @return $result;
 }
 
-@debug sort-list($list_to_sort);
+@function join-with-bar($list) {
+  $result: "";
+
+  @for $i from 1 through length($list) {
+    @if $i == 1 {
+      $result: "#{nth($list, $i)}";
+    } @else {
+      $result: "#{$result}|#{nth($list, $i)}";
+    }
+  }
+
+  @return $result;
+}
+
+@debug join-with-bar(sort-list($list_to_sort));
